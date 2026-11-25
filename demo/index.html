@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kedfix — ลืมเปลี่ยนภาษา? แก้ให้</title>
+<style>
+  :root { color-scheme: light dark; --ok: #0a7d4f; --maybe: #9a6700; --bg2: color-mix(in srgb, CanvasText 6%, Canvas); }
+  * { box-sizing: border-box; }
+  body { font: 16px/1.6 system-ui, "Noto Sans Thai", "Sarabun", sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+  p.lead { margin: 0 0 1.5rem; opacity: .8; }
+  textarea { width: 100%; min-height: 8rem; font: inherit; padding: .75rem; border-radius: .5rem; border: 1px solid color-mix(in srgb, CanvasText 25%, Canvas); background: Canvas; color: CanvasText; }
+  .row { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; align-items: center; margin: .75rem 0; }
+  label { display: inline-flex; gap: .4rem; align-items: center; }
+  select, button { font: inherit; padding: .3rem .6rem; border-radius: .4rem; }
+  #out { white-space: pre-wrap; padding: .75rem; min-height: 3rem; border-radius: .5rem; background: var(--bg2); }
+  mark { border-radius: .25rem; padding: 0 .15rem; cursor: help; }
+  mark.applied { background: color-mix(in srgb, var(--ok) 22%, transparent); outline: 1px solid var(--ok); }
+  mark.suggestion { background: color-mix(in srgb, var(--maybe) 18%, transparent); outline: 1px dashed var(--maybe); cursor: pointer; }
+  table { border-collapse: collapse; width: 100%; margin-top: 1rem; font-size: .92rem; }
+  th, td { text-align: left; padding: .3rem .5rem; border-bottom: 1px solid color-mix(in srgb, CanvasText 12%, Canvas); }
+  .examples button { font-size: .9rem; }
+  .muted { opacity: .7; font-size: .9rem; }
+  #err { color: #c62828; }
+</style>
+</head>
+<body>
+<h1>ลืมเปลี่ยนภาษา? · kedfix</h1>
+<p class="lead">วางข้อความที่พิมพ์ผิดแป้น — ระบบหาเฉพาะช่วงที่ผิด แก้ให้ และไม่แตะส่วนที่ถูกอยู่แล้ว (ลิงก์ อีเมล โค้ด ตัวเลข ไม่โดนแก้)</p>
+
+<textarea id="in" spellcheck="false" placeholder="เช่น  ไปกิน l;ylfu กัน"></textarea>
+
+<div class="row">
+  <label>แป้น
+    <select id="layout">
+      <option value="kedmanee">เกษมณี (Windows)</option>
+      <option value="kedmanee-mac">เกษมณี (macOS)</option>
+      <option value="pattachote">ปัตตะโชติ (Windows)</option>
+      <option value="pattachote-mac">ปัตตะโชติ (macOS)</option>
+      <option value="auto">หาให้เอง</option>
+    </select>
+  </label>
+  <label>แก้เมื่อมั่นใจ ≥ <input id="th" type="range" min="0.5" max="0.99" step="0.01" value="0.8"> <span id="thv">0.80</span></label>
+  <button id="copy">คัดลอกผลลัพธ์</button>
+</div>
+
+<div class="row examples">
+  <span class="muted">ลอง:</span>
+  <button data-x="ไปกิน l;ylfu กัน">ไปกิน l;ylfu กัน</button>
+  <button data-x="-v[86I,kd8iy[ gfuJp;lj'wa]N.shot">ทั้งประโยค</button>
+  <button data-x="้ำสสน ไนพสก">้ำสสน ไนพสก</button>
+  <button data-x="ลอง restart server f^sinvpy'">ลืมสลับกลับ</button>
+  <button data-x="ส่งไฟล์ที่ https://example.com/l;ylfu หรือ me@example.com นะ ok ไหม">ลิงก์ไม่โดนแตะ</button>
+</div>
+
+<div id="out" aria-live="polite"></div>
+<p id="err"></p>
+<table id="spans" hidden>
+  <thead><tr><th>ช่วง</th><th>เดิม</th><th>แก้เป็น</th><th>ทิศ</th><th>ความมั่นใจ</th><th></th></tr></thead>
+  <tbody></tbody>
+</table>
+<p class="muted">สีเขียว = แก้แล้ว · เส้นประสีเหลือง = ไม่แน่ใจพอ เลยแค่เสนอ (คลิกเพื่อรับ) · ทุกอย่างทำงานในเบราว์เซอร์ ไม่ส่งข้อความไปไหน</p>
+
+<script src="../dist/kedfix.global.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const input = $("in"), out = $("out"), tbody = document.querySelector("#spans tbody");
+  let accepted = new Set();
+
+  function esc(s) { return s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]); }
+
+  function render() {
+    $("err").textContent = "";
+    if (!window.kedfix) { $("err").textContent = "ยังไม่ได้ build: รัน npm run build ก่อน แล้วเปิดไฟล์นี้ใหม่"; return; }
+    const text = input.value;
+    const threshold = Number($("th").value);
+    $("thv").textContent = threshold.toFixed(2);
+    const r = kedfix.fix(text, { layout: $("layout").value, threshold });
+    const all = [...r.spans.map((s) => ({ ...s, applied: true })), ...r.suggestions.map((s) => ({ ...s, applied: accepted.has(s.from + ":" + s.to) }))]
+      .sort((a, b) => a.from - b.from);
+    let html = "", at = 0;
+    for (const s of all) {
+      html += esc(text.slice(at, s.from));
+      const cls = s.applied ? "applied" : "suggestion";
+      const shown = s.applied ? s.fixed : s.original;
+      html += `<mark class="${cls}" data-k="${s.from}:${s.to}" title="${esc(s.original)} → ${esc(s.fixed)} · ${s.confidence}">${esc(shown)}</mark>`;
+      at = s.to;
+    }
+    out.innerHTML = html + esc(text.slice(at));
+    tbody.innerHTML = all.map((s) => `<tr><td>${s.from}–${s.to}</td><td>${esc(s.original)}</td><td>${esc(s.fixed)}</td><td>${s.dir === "en-th" ? "EN→ไทย" : "ไทย→EN"}</td><td>${s.confidence.toFixed(3)}</td><td>${s.applied ? "แก้แล้ว" : "เสนอ"}</td></tr>`).join("");
+    $("spans").hidden = all.length === 0;
+  }
+
+  input.addEventListener("input", () => { accepted = new Set(); render(); });
+  $("layout").addEventListener("change", render);
+  $("th").addEventListener("input", render);
+  out.addEventListener("click", (e) => {
+    const m = e.target.closest("mark.suggestion");
+    if (m) { accepted.add(m.dataset.k); render(); }
+  });
+  document.querySelectorAll("[data-x]").forEach((b) => b.addEventListener("click", () => { input.value = b.dataset.x; accepted = new Set(); render(); }));
+  $("copy").addEventListener("click", () => navigator.clipboard?.writeText(out.textContent));
+  input.value = "ไปกิน l;ylfu กัน";
+  render();
+</script>
+</body>
+</html>
