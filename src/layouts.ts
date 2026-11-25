@@ -13,9 +13,11 @@ import { LAYOUT_DATA } from "./generated/layout-data.js";
  * Shift: the Thai shifted characters are taken from the shift layer on Windows and from the
  * LEFT shift on macOS (macOS types plain ASCII with the right shift — see README).
  */
-export type LayoutName = keyof typeof LAYOUT_DATA;
+export type LayoutName = "kedmanee" | "kedmanee-mac" | "pattachote" | "pattachote-mac";
 
-export const LAYOUT_NAMES = Object.keys(LAYOUT_DATA) as LayoutName[];
+const DATA: Record<LayoutName, { keys: string; chars: string }> = LAYOUT_DATA;
+
+export const LAYOUT_NAMES: readonly LayoutName[] = ["kedmanee", "kedmanee-mac", "pattachote", "pattachote-mac"];
 
 export interface Layout {
   readonly name: LayoutName;
@@ -31,7 +33,7 @@ export interface Layout {
 const cache = new Map<LayoutName, Layout>();
 
 export function isLayoutName(name: string): name is LayoutName {
-  return Object.prototype.hasOwnProperty.call(LAYOUT_DATA, name);
+  return (LAYOUT_NAMES as readonly string[]).includes(name);
 }
 
 export function getLayout(name: LayoutName = "kedmanee"): Layout {
@@ -40,7 +42,7 @@ export function getLayout(name: LayoutName = "kedmanee"): Layout {
   if (!isLayoutName(name)) {
     throw new RangeError(`Unknown layout "${String(name)}". Known: ${LAYOUT_NAMES.join(", ")}`);
   }
-  const { keys, chars } = LAYOUT_DATA[name];
+  const { keys, chars } = DATA[name];
   const toThai = new Map<string, string>();
   const toEnglish = new Map<string, string>();
   for (let i = 0; i < keys.length; i++) {
