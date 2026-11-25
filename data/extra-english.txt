@@ -1,4 +1,4 @@
-# Extra English-side words for kedfix (written for this project, MIT like the rest).
+# Extra English-side words for langslip (written for this project, MIT like the rest).
 # Tech, chat and brand words that show up in Thai messages but are not in 12dicts 3esl.
 # One per line, lowercase. Lines starting with # are comments.
 # Left OUT on purpose: tokens whose Kedmanee keystrokes spell a very common Thai word,

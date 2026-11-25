@@ -3,13 +3,13 @@ import { convert, detect, fix, isLayoutName, LAYOUT_NAMES, type LayoutName } fro
 declare const __VERSION__: string | undefined;
 const VERSION = typeof __VERSION__ === "string" ? __VERSION__ : "dev";
 
-const HELP = `kedfix — fix text typed on the wrong keyboard layout (Thai ⇄ English)
+const HELP = `langslip — fix text typed on the wrong keyboard layout (Thai ⇄ English)
 
 Usage
-  echo "l;ylfu" | kedfix            → สวัสดี   (finds the mistyped parts, keeps the rest)
-  kedfix "ไปกิน l;ylfu กัน"          → ไปกิน สวัสดี กัน
-  kedfix --to th "l;ylfu"           → สวัสดี   (re-type everything, no detection)
-  kedfix --to en "ฟหกด"             → asdf
+  echo "l;ylfu" | langslip            → สวัสดี   (finds the mistyped parts, keeps the rest)
+  langslip "ไปกิน l;ylfu กัน"          → ไปกิน สวัสดี กัน
+  langslip --to th "l;ylfu"           → สวัสดี   (re-type everything, no detection)
+  langslip --to en "ฟหกด"             → asdf
 
 Options
   --to th|en          Re-type the whole input to Thai / to English, key for key.
@@ -23,7 +23,7 @@ Options
 Text comes from the arguments, or from standard input when there are none.`;
 
 function fail(msg: string): never {
-  process.stderr.write(`kedfix: ${msg}\n`);
+  process.stderr.write(`langslip: ${msg}\n`);
   process.exit(2);
 }
 

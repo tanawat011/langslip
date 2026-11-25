@@ -1,5 +1,5 @@
 /**
- * Text kedfix never touches: links, e-mail addresses, paths, code, mentions, numbers, emoticons.
+ * Text langslip never touches: links, e-mail addresses, paths, code, mentions, numbers, emoticons.
  *
  * Every rule here was checked against the keystrokes of common Thai words, because on Kedmanee
  * many punctuation keys are Thai letters (; = ว, ' = ง, , = ม, . = ใ, / = ฝ, - = ข, [ = บ, ] = ล).

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>kedfix — ลืมเปลี่ยนภาษา? แก้ให้</title>
+<title>langslip — ลืมเปลี่ยนภาษา? แก้ให้</title>
 <style>
   :root { color-scheme: light dark; --ok: #0a7d4f; --maybe: #9a6700; --bg2: color-mix(in srgb, CanvasText 6%, Canvas); }
   * { box-sizing: border-box; }
@@ -26,7 +26,7 @@
 </style>
 </head>
 <body>
-<h1>ลืมเปลี่ยนภาษา? · kedfix</h1>
+<h1>ลืมเปลี่ยนภาษา? · langslip</h1>
 <p class="lead">วางข้อความที่พิมพ์ผิดแป้น — ระบบหาเฉพาะช่วงที่ผิด แก้ให้ และไม่แตะส่วนที่ถูกอยู่แล้ว (ลิงก์ อีเมล โค้ด ตัวเลข ไม่โดนแก้)</p>
 
 <textarea id="in" spellcheck="false" placeholder="เช่น  ไปกิน l;ylfu กัน"></textarea>
@@ -62,7 +62,7 @@
 </table>
 <p class="muted">สีเขียว = แก้แล้ว · เส้นประสีเหลือง = ไม่แน่ใจพอ เลยแค่เสนอ (คลิกเพื่อรับ) · ทุกอย่างทำงานในเบราว์เซอร์ ไม่ส่งข้อความไปไหน</p>
 
-<script src="../dist/kedfix.global.js"></script>
+<script src="../dist/langslip.global.js"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const input = $("in"), out = $("out"), tbody = document.querySelector("#spans tbody");
@@ -72,11 +72,11 @@
 
   function render() {
     $("err").textContent = "";
-    if (!window.kedfix) { $("err").textContent = "ยังไม่ได้ build: รัน npm run build ก่อน แล้วเปิดไฟล์นี้ใหม่"; return; }
+    if (!window.langslip) { $("err").textContent = "ยังไม่ได้ build: รัน npm run build ก่อน แล้วเปิดไฟล์นี้ใหม่"; return; }
     const text = input.value;
     const threshold = Number($("th").value);
     $("thv").textContent = threshold.toFixed(2);
-    const r = kedfix.fix(text, { layout: $("layout").value, threshold });
+    const r = langslip.fix(text, { layout: $("layout").value, threshold });
     const all = [...r.spans.map((s) => ({ ...s, applied: true })), ...r.suggestions.map((s) => ({ ...s, applied: accepted.has(s.from + ":" + s.to) }))]
       .sort((a, b) => a.from - b.from);
     let html = "", at = 0;

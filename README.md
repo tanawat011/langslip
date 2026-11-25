@@ -1,9 +1,9 @@
-# kedfix
+# langslip
 
 **Fix text typed on the wrong keyboard layout, Thai ⇄ English — only the parts that are wrong.**
 
 ```ts
-import { fix } from "kedfix";
+import { fix } from "langslip";
 
 fix("ไปกิน l;ylfu กัน").text;      // "ไปกิน สวัสดี กัน"
 fix("้ำสสน ไนพสก").text;           // "hello world"
@@ -21,7 +21,7 @@ Re-typing keys from one layout to the other is easy and has been done before: Py
 breaks the common real cases: one wrong word inside a correct Thai sentence, an English word
 that must stay English, a link, a file name, a name.
 
-kedfix decides **span by span**:
+langslip decides **span by span**:
 
 - It finds which spans were typed on the wrong layout inside mixed text and leaves the spans that
   are already right untouched — with their offsets, so you can show or undo each change.
@@ -40,10 +40,10 @@ kedfix decides **span by span**:
 ## Install
 
 ```sh
-npm install kedfix
+npm install langslip
 ```
 
-A `<script>` build is in the package too: `dist/kedfix.global.js` (global `kedfix`).
+A `<script>` build is in the package too: `dist/langslip.global.js` (global `langslip`).
 
 ## API
 
@@ -101,13 +101,13 @@ convert("mogmuh", "th", "pattachote");    // "สวัสดี"
 ## CLI
 
 ```sh
-echo "l;ylfu" | npx kedfix            # สวัสดี
-npx kedfix "ไปกิน l;ylfu กัน"          # ไปกิน สวัสดี กัน
-npx kedfix --to th "l;ylfu"           # สวัสดี   (re-type everything)
-npx kedfix --to en "ฟหกด"             # asdf
-npx kedfix --json "gxHo"              # spans and confidences
-npx kedfix --detect "้ำสสน"           # verdict as JSON
-npx kedfix --layout auto "mogmuhntgz" # สวัสดีครับ (Pattachote found)
+echo "l;ylfu" | npx langslip            # สวัสดี
+npx langslip "ไปกิน l;ylfu กัน"          # ไปกิน สวัสดี กัน
+npx langslip --to th "l;ylfu"           # สวัสดี   (re-type everything)
+npx langslip --to en "ฟหกด"             # asdf
+npx langslip --json "gxHo"              # spans and confidences
+npx langslip --detect "้ำสสน"           # verdict as JSON
+npx langslip --layout auto "mogmuhntgz" # สวัสดีครับ (Pattachote found)
 ```
 
 ## Layouts
@@ -121,7 +121,7 @@ npx kedfix --layout auto "mogmuhntgz" # สวัสดีครับ (Pattacho
 
 **Shift.** Upper-case letters and shifted symbols are read as the Thai shifted characters
 (`gxHo` → `เป็น`, `H` = `็`). On macOS the Thai layouts type plain ASCII with the **right** Shift
-key; kedfix assumes the left one, like Windows.
+key; langslip assumes the left one, like Windows.
 **Caps Lock.** A token typed all in capitals is also tried in lower case (`L;YLFU` → `สวัสดี`).
 
 ## How it works
@@ -197,10 +197,10 @@ ICU's `thaidict.txt` (Unicode License v3); English words from Alan Beale's 12dic
 
 ## ภาษาไทย
 
-**kedfix แก้ข้อความที่พิมพ์ตอนลืมเปลี่ยนภาษา — ไทย ⇄ อังกฤษ — และแก้เฉพาะช่วงที่ผิด**
+**langslip แก้ข้อความที่พิมพ์ตอนลืมเปลี่ยนภาษา — ไทย ⇄ อังกฤษ — และแก้เฉพาะช่วงที่ผิด**
 
 ```ts
-import { fix } from "kedfix";
+import { fix } from "langslip";
 fix("ไปกิน l;ylfu กัน").text; // "ไปกิน สวัสดี กัน"
 fix("้ำสสน ไนพสก").text;      // "hello world"
 ```
@@ -211,7 +211,7 @@ fix("้ำสสน ไนพสก").text;      // "hello world"
 `thai-keyboard-corrector`, `key-correction`) แต่ส่วนใหญ่แปลงทั้งข้อความ หรือสลับทั้งก้อนเมื่อตัวอักษรส่วนใหญ่เป็นภาษาเดียว
 ซึ่งพังในกรณีที่เจอบ่อยจริง: คำเดียวที่ผิดกลางประโยคไทยที่ถูก, คำอังกฤษที่ต้องเป็นอังกฤษ, ลิงก์, ชื่อไฟล์, ชื่อคน
 
-kedfix ตัดสินใจ **ทีละช่วง**:
+langslip ตัดสินใจ **ทีละช่วง**:
 
 - หาว่าช่วงไหนพิมพ์ผิดแป้น แก้เฉพาะช่วงนั้น ช่วงที่ถูกอยู่แล้วไม่แตะ และบอกตำแหน่งของทุกการแก้
 - ไม่ทำลายภาษาอังกฤษที่ตั้งใจพิมพ์: ลิงก์ อีเมล path ชื่อไฟล์ โค้ด ตัวเลข วันที่ เวลา เวอร์ชัน @mention #แท็ก อีโมติคอน คำอังกฤษ คำแชต ชื่อคน
@@ -225,9 +225,9 @@ kedfix ตัดสินใจ **ทีละช่วง**:
 ### ติดตั้งและใช้
 
 ```sh
-npm install kedfix
-echo "l;ylfu" | npx kedfix      # สวัสดี
-npx kedfix --to th "l;ylfu"     # แปลงทั้งข้อความ ไม่ตรวจ
+npm install langslip
+echo "l;ylfu" | npx langslip      # สวัสดี
+npx langslip --to th "l;ylfu"     # แปลงทั้งข้อความ ไม่ตรวจ
 ```
 
 - `fix(text, options)` → `{ text, spans, suggestions, layout }` — แต่ละ span คือ `{ from, to, original, fixed, dir, confidence, layout }`

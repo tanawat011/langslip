@@ -15,10 +15,10 @@ export default defineConfig([
     treeshake: true,
   },
   {
-    // one file for <script> tags and the demo page: window.kedfix
-    entry: { "kedfix.global": "src/index.ts" },
+    // one file for <script> tags and the demo page: window.langslip
+    entry: { "langslip.global": "src/index.ts" },
     format: ["iife"],
-    globalName: "kedfix",
+    globalName: "langslip",
     minify: true,
     target: "es2020",
     platform: "browser",

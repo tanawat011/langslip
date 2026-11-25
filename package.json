@@ -1,5 +1,5 @@
 {
-  "name": "kedfix",
+  "name": "langslip",
   "version": "0.1.0",
   "description": "Fix text typed on the wrong keyboard layout, Thai ⇄ English (Kedmanee, Pattachote; Windows and macOS). Finds the mistyped spans inside mixed text and leaves the rest alone.",
   "keywords": [
@@ -34,7 +34,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "kedfix": "./dist/cli.js"
+    "langslip": "./dist/cli.js"
   },
   "files": [
     "dist",

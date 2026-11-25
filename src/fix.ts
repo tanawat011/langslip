@@ -32,7 +32,7 @@ export interface Span {
   fixed: string;
   /** `"en-th"`: typed on the English layout, meant Thai. `"th-en"`: the other way. */
   dir: Direction;
-  /** 0–1: how sure kedfix is that `fixed` is what was meant. */
+  /** 0–1: how sure langslip is that `fixed` is what was meant. */
   confidence: number;
   layout: LayoutName;
 }

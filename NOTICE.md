@@ -1,6 +1,6 @@
-# Third-party data in kedfix
+# Third-party data in langslip
 
-kedfix's code is MIT (see LICENSE). It ships tables and word lists built from the sources below.
+langslip's code is MIT (see LICENSE). It ships tables and word lists built from the sources below.
 `scripts/build-data.ts` rebuilds every generated file in `src/generated/` from `data/`.
 
 ## Keyboard layouts
@@ -20,7 +20,7 @@ Raw files: `data/sources/cldr/*.xml`, `data/sources/macos/macos-27-thai-layouts.
 (26,383 words). Header: "Copyright (C) 2016 and later: Unicode, Inc. and others. License & terms of
 use: http://www.unicode.org/copyright.html — Copyright (c) 2006-2015 International Business Machines
 Corporation, Apple Inc., and others. All Rights Reserved." Licensed under the Unicode License v3
-(text below). kedfix ships the 13,847 words that are not two or more other words joined, front-coded.
+(text below). langslip ships the 13,847 words that are not two or more other words joined, front-coded.
 
 ## English word list
 
@@ -28,7 +28,7 @@ Corporation, Apple Inc., and others. All Rights Reserved." Licensed under the Un
 Alt12Dicts package (wordlist.aspell.net, mirrored at github.com/en-wl/wordlist, branch v1,
 `alt12dicts/3esl.txt`). Its README: "All of these files have been explicitly placed in the Public
 Domain by Alan Beale." Alan Beale asks that 12dicts be acknowledged — thank you.
-`data/extra-english.txt`, `data/common-thai.txt` and `data/names.txt` were written for kedfix (MIT).
+`data/extra-english.txt`, `data/common-thai.txt` and `data/names.txt` were written for langslip (MIT).
 
 ## Unicode License v3 (CLDR, ICU)
 

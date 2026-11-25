@@ -1,7 +1,7 @@
 import { LAYOUT_DATA } from "./generated/layout-data.js";
 
 /**
- * The Thai layouts kedfix knows.
+ * The Thai layouts langslip knows.
  *
  * - `kedmanee`        Thai Kedmanee as Windows ships it (TIS 820-2538). Also the default.
  * - `kedmanee-mac`    macOS "Thai". Differs from Windows on two keys: ` types "-" (Windows "_")
