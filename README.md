@@ -39,11 +39,15 @@ langslip decides **span by span**:
 
 ## Install
 
+langslip is not on npm. Install it straight from GitHub (npm builds it on install):
+
 ```sh
-npm install langslip
+npm install github:tanawat011/langslip
 ```
 
-A `<script>` build is in the package too: `dist/langslip.global.js` (global `langslip`).
+Or clone it and run `npm ci && npm run build`. A `<script>` build comes with it: `dist/langslip.global.js` (global `langslip`).
+
+⚠️ A package called `langslip` on the npm registry is not this one.
 
 ## API
 
@@ -99,6 +103,8 @@ convert("mogmuh", "th", "pattachote");    // "สวัสดี"
 `getLayout(name)` (the key tables), `LAYOUT_NAMES`, `isLayoutName`, and the types.
 
 ## CLI
+
+After installing (above), `npx langslip` runs the local copy:
 
 ```sh
 echo "l;ylfu" | npx langslip            # สวัสดี
@@ -224,8 +230,10 @@ langslip ตัดสินใจ **ทีละช่วง**:
 
 ### ติดตั้งและใช้
 
+ไม่ได้อยู่บน npm ติดตั้งจาก GitHub ตรง ๆ (npm จะ build ให้ตอนติดตั้ง) — แพ็กเกจชื่อ `langslip` บน npm ไม่ใช่ตัวนี้
+
 ```sh
-npm install langslip
+npm install github:tanawat011/langslip
 echo "l;ylfu" | npx langslip      # สวัสดี
 npx langslip --to th "l;ylfu"     # แปลงทั้งข้อความ ไม่ตรวจ
 ```

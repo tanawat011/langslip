@@ -49,6 +49,7 @@
     "data": "tsx scripts/build-data.ts",
     "fit": "tsx scripts/fit-weights.ts",
     "build": "tsup",
+    "prepare": "tsup",
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
     "lint": "eslint .",
     "test": "vitest run",
