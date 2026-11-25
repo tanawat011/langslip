@@ -1,0 +1,28 @@
+วันนี้ต้อง deploy ระบบใหม่
+ใครใช้ git เป็นบ้าง
+เปิด VS Code แล้ว error เต็มเลย
+ส่ง link มาทาง LINE นะ
+ประชุม Zoom บ่ายสองโมง
+ok ครับ เดี๋ยวจัดการให้
+ไฟล์อยู่ใน Google Drive
+ลอง restart server ดูหรือยัง
+อีเมลของผมคือ tanawat@example.com
+เข้าเว็บ https://example.co.th ได้เลย
+ราคา 1,250 บาท ส่งฟรี
+โทร 081-234-5678 ได้ตลอด
+ใช้ npm install ก่อนแล้วค่อย npm run dev
+แก้ bug ใน src/index.ts แล้วนะ
+React กับ Vue ชอบอันไหนมากกว่า
+ซื้อ iPhone เครื่องใหม่มา
+พรุ่งนี้มี meeting กับลูกค้า
+Tanawat ส่ง PR มาแล้ว
+งานนี้ใช้ TypeScript ทั้งหมด
+เจอกันที่ Siam Paragon นะ
+ดู Netflix ทั้งคืน
+ตั้ง password ให้ยากหน่อย
+ทักมาใน Facebook ได้เลย
+ลง Docker ไม่ผ่าน
+API ตอบช้ามาก ต้องเพิ่ม cache
+คะแนน 95% ผ่านแล้ว
+นัด 10:30 ที่ออฟฟิศ
+ปี 2026 จะเปิดสาขาใหม่
