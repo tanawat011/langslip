@@ -1,0 +1,69 @@
+{
+  "name": "kedfix",
+  "version": "0.1.0",
+  "description": "Fix text typed on the wrong keyboard layout, Thai ⇄ English (Kedmanee, Pattachote; Windows and macOS). Finds the mistyped spans inside mixed text and leaves the rest alone.",
+  "keywords": [
+    "thai",
+    "keyboard",
+    "layout",
+    "kedmanee",
+    "pattachote",
+    "wrong-layout",
+    "mistype",
+    "ลืมเปลี่ยนภาษา",
+    "ภาษาไทย"
+  ],
+  "license": "MIT",
+  "author": "Tanawat Pinthongpan",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "kedfix": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "data": "tsx scripts/build-data.ts",
+    "fit": "tsx scripts/fit-weights.ts",
+    "build": "tsup",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "prepublishOnly": "npm run check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.7",
+    "eslint": "^10.15.0",
+    "fast-check": "^4.11.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^5.1.2"
+  }
+}
